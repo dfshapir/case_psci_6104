@@ -1,0 +1,128 @@
+---
+title: "Case Study PSCI 6104"
+author: "Daniel Shapiro"
+date: "5/10/2024"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(foreign)
+library(tidyverse)
+library(haven)
+```
+
+```{r}
+arm2021 <- read_dta("cb2021_CB_2022_Regional_15.08.2022.dta") %>% 
+  filter(COUNTRY == 1)
+arm2019 <- read_dta("cb2019_CB_2019_Armenia_responses.dta") %>%
+  filter(COUNTRY == 1)
+arm2017 <- read_dta("CB_2017_Armenia_public.dta") %>%
+  filter(COUNTRY == 1) 
+arm2015 <- read_dta("CB_2015_Regional_Only_Responses_140416.dta") %>%
+  filter(COUNTRY == 1)
+arm2013 <- read_dta("CB2013_Regional_only_responses_07032014.dta") %>%
+  filter(COUNTRY == 1) 
+```
+
+```{r cleaning}
+arm2021c <- arm2021 %>%
+  select(POLDIRN, TRUSTEU, IMPISS1, IMPISS2, NATOSUPP, EUSUPP, MAINFRN, MAINENEM)
+arm2019c <- arm2019 %>%
+  select(POLDIRN, TRUSTEU, IMPISS1, IMPISS2, NATOSUPP, EUSUPP, MAINFRN, MAINENEM)
+arm2017c <- arm2017 %>%
+  select(POLDIRN, TRUSTEU, IMPISS1, IMPISS2, NATOSUPP, EUSUPP, MAINFRN, MAINENEM)
+arm2015c <- arm2015 %>%
+  select(POLDIRN, TRUSTEU, IMPISS1, IMPISS2, NATOSUPP, EUSUPP, MAINFRN, MAINENEM)
+arm2013c <- arm2013 %>%
+  select(POLDIRN, TRUSTEU, IMPISS1, IMPISS2, NATOSUPP, EUSUPP, MAINFRN, MAINENEM)
+```
+
+```{r}
+fr2021 <- arm2021c %>% group_by(MAINFRN) %>% summarise(Percentage=n()/nrow(.))
+fr2019 <- arm2019c %>% group_by(MAINFRN) %>% summarise(Percentage = n()/nrow(.))
+fr2017 <- arm2017c %>% group_by(MAINFRN) %>% summarise(Percentage=n()/nrow(.))
+fr2015 <- arm2015c %>% group_by(MAINFRN) %>% summarise(Percentage=n()/nrow(.))
+fr2013 <- arm2013c %>% group_by(MAINFRN) %>% summarise(Percentage=n()/nrow(.))
+enem2021 <- arm2021c %>% group_by(MAINENEM) %>% summarise(Percentage=n()/nrow(.))
+enem2019 <- arm2019c %>% group_by(MAINENEM) %>% summarise(Percentage=n()/nrow(.))
+enem2017 <- arm2017c %>% group_by(MAINENEM) %>% summarise(Percentage=n()/nrow(.))
+enem2015 <- arm2015c %>% group_by(MAINENEM) %>% summarise(Percentage=n()/nrow(.))
+enem2013 <- arm2013c %>% group_by(MAINENEM) %>% summarise(Percentage=n()/nrow(.))
+eu2021 <- arm2021c %>% group_by(EUSUPP) %>% summarise(Percentage=n()/nrow(.))
+eu2019 <- arm2019c %>% group_by(EUSUPP) %>% summarise(Percentage=n()/nrow(.))
+eu2017 <- arm2017c %>% group_by(EUSUPP) %>% summarise(Percentage=n()/nrow(.))
+eu2015 <- arm2015c %>% group_by(EUSUPP) %>% summarise(Percentage=n()/nrow(.))
+eu2013 <- arm2013c %>% group_by(EUSUPP) %>% summarise(Percentage=n()/nrow(.))
+```
+
+```{r}
+# This probably shouldn't have had to be this much trouble, but it ended up where it was supposed to be. The same process is used for the "Turkey as main enemy"  variable as well in the next section, and a similar process is used for "EU Support" in the final section.
+
+Year <- c(2021, 2019, 2017, 2015, 2013)
+Russia_Main_Friend <- c(fr2021[5,2]*100, fr2019[15,2]*100, fr2017[14,2]*100, fr2015[9,2]*100, fr2013[8,2]*100)
+
+mainfriend <- data.frame(Year, Russia_Main_Friend) %>%
+  pivot_longer(!Year, names_to = "Russia Main Friend", values_to = "Count") %>%
+  select(Year, Count)
+
+mainfriend_clean <- mainfriend[c(1, 7, 13, 19, 25),]
+```
+
+```{r}
+Turkey_Main_Enemy <- c(enem2021[5,2]*100, enem2019[12,2]*100, enem2017[10,2]*100, enem2015[11,2]*100, enem2013[11,2]*100)
+
+mainenemy <- data.frame(Year, Turkey_Main_Enemy) %>%
+  pivot_longer(!Year, names_to = "Turkey Main Enemy", values_to = "Count") %>%
+  select(Year, Count)
+
+mainenemy_clean <- mainenemy[c(1, 7, 13, 19, 25),]
+```
+
+```{r}
+EU_Support <- c((eu2021[6,2] + eu2021[7,2])*100, (eu2019[6,2] + eu2019[7,2])*100, (eu2017[7,2] + eu2017[8,2])*100, (eu2015[6,2] + eu2015[7,2])*100, (eu2013[6,2] + eu2013[7,2])*100)
+
+eusupport <- data.frame(Year, EU_Support) %>%
+  pivot_longer(!Year, names_to = "EU Support", values_to = "Count") %>%
+  select(Year, Count)
+
+eusupportclean <- eusupport[c(1, 7, 13, 19, 25),]
+```
+
+```{r}
+ggplot(eusupportclean, aes(x = as.factor(Year), y = Count, group = 1)) +
+  geom_point(stat = "summary", fun.y = sum) + 
+  stat_summary(fun.y = sum, geom = "line", color = "blue") +
+  labs(y = "Percentage",
+       x = "Year", 
+       title = "Percentage of Armenians Supporting EU Accession",
+       subtitle = "Combined 'Rather Support' and 'Fully Support' Responses",
+       caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
+  scale_y_continuous(limits = c(0, 100)) +
+  geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+```
+
+```{r}
+ggplot(mainenemy_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
+  geom_point(stat = "summary", fun.y = sum) + 
+  stat_summary(fun.y = sum, geom = "line", color = "red") +
+  labs(y = "Percentage",
+       x = "Year", 
+       title = "Percentage of Armenians who Believe Turkey is Armenia's Main Enemy",
+       caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
+  scale_y_continuous(limits = c(0, 100)) +
+  geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+```
+
+```{r}
+ggplot(mainfriend_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
+  geom_point(stat = "summary", fun.y = sum) + 
+  stat_summary(fun.y = sum, geom = "line", color = "green") +
+  labs(y = "Percentage",
+       x = "Year", 
+       title = "Percentage of Armenians who Believe Russia is Armenia's Main Friend",
+       caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
+  scale_y_continuous(limits = c(0, 100)) +
+  geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+```
+
