@@ -102,6 +102,8 @@ ggplot(eusupportclean, aes(x = as.factor(Year), y = Count, group = 1)) +
        caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
   scale_y_continuous(limits = c(0, 100)) +
   geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+
+ggsave("eusupport.png")
 ```
 
 ```{r}
@@ -114,6 +116,8 @@ ggplot(mainenemy_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
        caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
   scale_y_continuous(limits = c(0, 100)) +
   geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+
+ggsave("mainenemy.png")
 ```
 
 ```{r}
@@ -126,5 +130,7 @@ ggplot(mainfriend_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
        caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
   scale_y_continuous(limits = c(0, 100)) +
   geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+
+ggsave("mainfriend.png")
 ```
 
