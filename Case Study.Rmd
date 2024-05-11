@@ -13,6 +13,8 @@ library(haven)
 ```
 
 ```{r}
+# Some of these included data for other countries, despite the labels on the website.
+
 arm2021 <- read_dta("cb2021_CB_2022_Regional_15.08.2022.dta") %>% 
   filter(COUNTRY == 1)
 arm2019 <- read_dta("cb2019_CB_2019_Armenia_responses.dta") %>%
