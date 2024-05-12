@@ -1,12 +1,14 @@
 ---
-title: "Case Study PSCI 6104"
-author: "Daniel Shapiro"
-date: "5/10/2024"
+title: "Public Opinion and Foreign Policy: A Literature Review and Application"
+author: "Daniel Shapiro, PSCI 6104"
 output: pdf_document
+header-includes:
+  - \usepackage{setspace}
+abstract: ""
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(foreign)
 library(tidyverse)
 library(haven)
@@ -91,20 +93,71 @@ eusupport <- data.frame(Year, EU_Support) %>%
 eusupportclean <- eusupport[c(1, 7, 13, 19, 25),]
 ```
 
-```{r}
-ggplot(eusupportclean, aes(x = as.factor(Year), y = Count, group = 1)) +
-  geom_point(stat = "summary", fun.y = sum) + 
-  stat_summary(fun.y = sum, geom = "line", color = "blue") +
-  labs(y = "Percentage",
-       x = "Year", 
-       title = "Percentage of Armenians Supporting EU Accession",
-       subtitle = "Combined 'Rather Support' and 'Fully Support' Responses",
-       caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
-  scale_y_continuous(limits = c(0, 100)) +
-  geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+\doublespacing
 
-ggsave("eusupport.png")
-```
+In any modern state, citizens hope that their government will act in their interests. Some states have more avenues through which citizens can press for greater governmental accountability than others; even in the most opaque and authoritarian states, however, governments must at least take some citizen interests into account. On some issues, especially those concerning basic aspects of citizen wellbeing, levers of accountability tend to be decently developed, while on others, policy-making is significantly more sheltered from citizen opinion. One such issue is foreign policy. For many years, scholars have debated the degree to which citizens influence their government’s foreign policy, as much of the process of foreign policy creation appears to be carried out by career bureaucrats in a country’s foreign ministry, rather than by local politicians who inherently have more connections to local populations. This understanding makes a certain amount of sense, as national defense, for instance, is a public good that affects all within a country. 
+
+Despite foreign policy’s relative insulation from public pressure, scholars have increasingly come to understand that governments must at least to some degree take their citizens’ interests into account on this issue. In this paper, I trace literature on how citizen attitudes on foreign affairs are connected with actual foreign policy. While earlier literature looks mostly at the United States, more recent literature has spread to other democracies and has expanded to include aspects of accountability in non-democracies as well. This paper will evaluate this large range of approaches, identify gaps in the literature, and finish with a short case study to show some difficulties associated with this area of research and explore strategies for tackling new issues and gaps in this literature.
+
+### Early Literature 
+
+In early literature, the question of “foreign policy accountability” was not considered particularly useful, as many scholars did not believe that the citizenry had any sort of coherent thoughts on foreign policy to begin with. Commonly referred to as the “Almond/Lippmann consensus,” political scientists viewed public opinion on foreign policy as capricious, uninformed, volatile, and mood-driven. Walter Lippmann (1922, 1925) found that citizens were simply too busy with other concerns to form fully-fledged opinions on foreign policy. In later work, Lippmann would extend his argument to claim that not only were Americans uninformed and apathetic, but they were so out of touch with the realities of foreign affairs that listening to their opinions could, in fact, be dangerous for political elites and for the country as a whole. Gabriel Almond (1950) shared many of these views, claiming that citizens’ views on foreign policy were too volatile to be taken seriously by political elites and that therefore, political elites should do their best to keep decision-making on foreign policy as far away from citizen preferences as possible. These arguments were supported by other work around the same time period, including by Converse (1964); in fact, throughout the 1960s, Holsti (1992) notes that the predominant view about public opinion on foreign policy was that it was “impotent.”
+
+Despite this early pessimism about the coherence of public opinion on foreign policy and its overall effect on actual policymaking, literature over the next couple of decades began to a) conceptualize public opinion on foreign policy as more coherent than previously thought, and b) afforded it a greater role in determining actual government policy. Especially during the Vietnam era, scholars began to realize that the American public did in fact care to some degree about foreign policy and that policymakers noticed. Works by Mueller (1971, 1973) showed that people cared about conflicts more as the numbers of American dead soldiers rose, and Jentleson (1992) and Holsti and Rosenau (1979) analyzed these sorts of dynamics during the Vietnam War as well. Arguably the largest contribution to the literature, however, was the survey carried out by Verba et. al (1967), which discovered a moderated and logical public vis-a-vis Vietnam; these findings were published in a paper (Verba and Brody 1970) and then would be analyzed by later scholars as well.
+
+After Verba et. al’s work, other scholars continued to work to understand whether the public’s views on foreign policy were coherent and, crucially, if/how those views affect government policy. One oft-cited paper along these lines is Page and Shapiro (1983), which is often considered to be the first main rebuttal of the Almond/Lippmann consensus. While Verba et al. presented tentative evidence of a “coherent” public opinion on foreign policy, Page and Shapiro’s work goes much further in its analysis. After compiling a dataset of major public opinion shifts among the American public, Page and Shapiro look at government decisions on those issues a year later and find that in fact, about two-thirds of changes in political opinions lead to a subsequent change in government policy. Crucially, the authors find no significant variation between domestic and foreign issues, implying that there is not so much of a difference between coherence of opinion on foreign and domestic opinions as may have been assumed previously. Regarding their second goal, to determine whether or not public opinion influences policy, the paper made an attempt to answer by showing time-lagged results that would seem to support the hypothesis that opinion does, in fact, change policy. However, the explanation of the mechanisms by which this process would allegedly happen left something to be desired. Papers such as Jentleson (1992) and Jentleson & Britton (1998) that followed in Page and Shapiro’s footsteps tended to focus more on the first aspect – public opinion – rather than its effects on policy.
+
+Several other studies around this time period applied Page and Shapiro’s findings to specific cases. Bundy and Blight (1987), for example, looked at the Kennedy administration in the United States and found that Kennedy did change certain foreign policy stances due to fear of domestic backlash. Their work, based on declassified meeting transcripts, is largely anecdotal; Larry Bartels (1991), however, finds some similar dynamics in his work on the Reagan administration’s defense spending. Similarly to Page and Shapiro, Bartels draws a direct line from well-defined public opinion on foreign policy (high public demand for increased defense spending at the beginning of the Reagan administration) to the government’s actions – a 40% real increase in defense spending through Reagan’s first four years in office. This increase was certainly helped by the fact that many decisions on appropriations originate in Congress, meaning that citizen advocacy for certain appropriations-related foreign policy positions likely have more of a possibility to be taken into account than issue areas that bypass Congress completely. Clearly, by this point, scholars were beginning to understand that public opinion actually did play a role in foreign policy decision-making – at the very least on certain issues.[^1]
+
+Around the same time that scholars were beginning to pay more attention to public opinion as both coherent and influential, others were hesitant to embrace the supposed causal line with public opinion as the independent variable and government actions as the dependent variable. In fact, some argued, it could be the case that administrations actively manipulate coverage of certain issues so that people form certain opinions about them that presumably are in sync with public officials’ preferred policy outcomes, thus turning the causal relationship in the opposite direction. Russett (1990) argues that “democracy is hardly just a system of leaders listening to the *vox populi* and acting accordingly. Leaders do sometimes lead and can change attitudes as well as respond to them.”[^2] Nincic (1988) comes to similar conclusions regarding US policy toward the Soviet Union, arguing that it has been both “manipulative” and “reactive” at different times. In more modern literature (Berinsky 2007, Althaus & Coe 2011, Saunders 2015, Guisinger and Saunders 2017), scholars have looked at the media as a key player that shapes citizens’ opinions, whether domestic or foreign. In contexts where the government has a significant amount of control over the media, one could expect that the arguments for the reversed causal arrow would be even stronger.[^3] Thus, while some pushed for more recognition of public opinion’s effects on government policy, others pushed in the opposite direction to discuss the government’s attempts to shape citizens’ thoughts. 
+
+### Two Key Works
+
+Moving further, the debate about the effects of public opinion on foreign policy decision-making was revolutionized by a couple of strands of literature: James Fearon’s 1994 paper, “Domestic Political Audiences and the Escalation of International Disputes” and Bruce Bueno de Mesquita’s work on the “selectorate theory,” the application of which to international politics can best be found in Bueno de Mesquita et al.’s 1999 paper, “An Institutional Explanation of the Democratic Peace” (among others).[^4] Both of these arguments are predicated on the basic notion that leaders fundamentally wish to stay in power, and in foreign policy decision-making, certain measures need to be taken in order to satisfy some domestic constituency. As a result of these pieces, mechanisms of the long-theorized “democratic peace” were made more clear; additionally, unpacking these arguments helps shed light on more recent literature on the public’s role in determining foreign policy.
+
+Fearon (1994) analyzed how leaders interact with domestic audiences during international crises. One of his main assumptions was that if a leader threatens escalation (or actually escalates) and then backs down from it, he/she will be punished by the electorate, incurring so-called “audience costs.” A number of important implications can be elucidated from this argument. For one, the side with a “stronger domestic audience” (a democracy) is logically less likely to back down from a confrontation than the side with a weaker domestic audience, because doing so would incur more costs on the former leader than the latter. This also implies, according to Fearon, that more pluralist states should be able to signal their intentions during crises better, because there is more of a domestic cost for bluffing. Fearon’s work spawned a wide literature on audience costs, including a landmark study by Tomz (2007), that found empirical evidence for the existence of audience costs, and other work that delves deeper into some of the specifics of audience costs (Weeks 2008, Kertzer and Brutger 2016, etc.). Fearon’s work has also inspired pushback from scholars skeptical of the effects of audience costs as described by Fearon, such as Snyder and Borghard (2011), Levendusky and Horowitz (2012), and Downes and Sechser (2012). While there is not any true consensus on audience costs or their implications for foreign policy decision-making, Fearon’s work did generate a lot more discussion and scholarship on the impacts of public opinion on foreign policy.
+
+Bueno de Mesquita, meanwhile, examined the relationship between the size of a given leader’s winning coalition and foreign policy decision-making. Bueno de Mesquita finds that the larger the “winning coalition” of a leader (representative democracies at the larger end and personalist dictatorships at the smaller end), the more selective they are regarding war initiation. Similarly to Fearon, Bueno de Mesquita notes that leaders with larger domestic audiences must be very careful with wartime policy; after all, a leader can be sanctioned at the polls for poor performance (Ferejohn 1986, Fearon 1999). Thus, leaders chosen by the people stay accountable to their publics by a) devoting comparatively more resources to warfighting than more autocratic leaders and b) only initiating wars when they are relatively confident they can win. As with Fearon, references to Bueno de Mesquita’s work can be seen in a good amount of scholarship, and the idea that democratic leaders have a large domestic base to appease and thus act differently in foreign policy can be seen in a lot of work over the last couple of decades (Aldrich et al. 2006, Baum and Potter 2015, Gelpi 2017, Tomz, Weeks and Yarhi-Milo 2020). There have been disputes of Bueno de Mesquita’s contextualization of his own work; while he claims that his work helps provide empirical support for the theory of the “democratic peace,” scholars such as Jessica Weeks (2008, 2012) note that logics of selectorate constraint can apply to certain types of autocracies as well. However, like Fearon’s work, Bueno de Mesquita’s led to further enhanced discourse on the role of public opinion in foreign policy decision-making.
+
+Both Fearon’s theory of “audience costs” and Bueno de Mesquita’s “selectorate theory,” while not prescribing specific policy responses for specific changes in public opinion, helped change the predominant narrative from skepticism about the coherence of public opinion on foreign policy in the first place to a) the recognition that public opinion on foreign policy a) can be tracked and measured and b) does matter – at least to some degree. Modern literature on public opinion in foreign policy largely takes these assumptions in stride and focuses more on clarifying details. There is one exception in the literature, however, which is worth noting first before delving into the current state of the field – military interventions. A couple of key studies over the last twenty years have shown that despite governmental responsiveness to public opinions in many areas of foreign policy, leaders often choose to undertake military action abroad even when their citizenry is more hesitant. Larson and Savych (2005) state flatly that “the absence of support for military operations from a majority of Americans has not hindered presidents from undertaking those operations in the past, nor does it seem likely to prove much of a barrier in the future.” Additionally, Kreps (2010) finds that despite low public support for continued military operations in Afghanistan, NATO member states continued to contribute to missions seemingly without much of a second thought. Thus, for certain key military endeavors – especially if loyalty to an alliance is at stake – public opinion may not matter so much.[^5]
+
+### Modern Literature: General Topics, Non-US Contexts, Authoritarian Systems, Trade
+
+Contemporary literature in international relations in general has become progressively more interested in domestic politics; thus, it is perhaps no surprise that a lot of modern literature on public opinion in foreign policy has tended to focus on microfoundations (Kertzer 2017). Some scholars have continued working on microfoundations of the democratic peace; studies by Tomz and Weeks (2013), Kertzer et al. (2014), Kreps and Maxey (2018), and Tomz and Weeks (2021) have looked at how citizens’ individual senses of morality inform their hesitancy to fight against citizens of other democratic countries. Others, inspired directly or indirectly by Nina Tannenwald’s seminal 1999 paper on the “nuclear taboo,” have looked at the American public’s opinions on the usage of nuclear weapons; while studies show some support for the idea that using nuclear weapons should be not seen as an option, others (Press, Sagan and Valentino 2013) have found more mixed results – and, referring back to Kreps (2010) and Larson and Savych (2005), there is some doubt that public opinion on such high-level military decisions such as the usage of 	Contemporary literature in international relations in general has become progressively more interested in domestic politics; thus, it is perhaps no surprise that a lot of modern literature on public opinion in foreign policy has tended to focus on microfoundations (Kertzer 2017). Some scholars have continued working on microfoundations of the democratic peace; studies by Tomz and Weeks (2013), Kertzer et al. (2014), Kreps and Maxey (2018), and Tomz and Weeks (2021) have looked at how citizens’ individual senses of morality inform their hesitancy to fight against citizens of other democratic countries. Others, inspired directly or indirectly by Nina Tannenwald’s seminal 1999 paper on the “nuclear taboo,” have looked at the American public’s opinions on the usage of nuclear weapons; while studies show some support for the idea that using nuclear weapons should be not seen as an option, others (Sagan and Valentino 2013) have found more mixed results – and, referring back to Kreps (2010) and Larson and Savych (2005), there is some doubt that public opinion on such high-level military decisions such as the usage of nuclear weapons even matters much. Still others have worked on more detailed assessments of what sorts of leaders get “punished” for foreign policy missteps (Croco 2011, Schwartz and Blair 2020, etc.). Overall, modern literature has branched off in many different directions – in ways both discussed above and below.
+
+In addition to contemporary literature that focuses largely on security-related public opinion in the United States, more scholars have begun covering other countries as well of late. This literature has long been almost entirely dominated by studies of the United States; modern work is attempting to draw in more cases. Some scholars, such as Cooper and Momani (2011, on public opinion in post-Cold War small states) and Oktay (2018, 13 advanced democracies in the European Union) look at groups of countries; others have tended more toward individual country case studies (Bjereld and Ekengren 1999 in Sweden, Doeser 2011 in Denmark, Ganguly et al. 2017 and Narang and Staniland 2018 in India, etc.) Often, these studies will try to apply conclusions gleaned from US-based literature to other contexts and at times find different results: Oktay (2018), for example, finds variation based on governmental structure in the electorate’s relative ability to sanction politicians for unpopular and/or subpar foreign policy, as states with more actors involved in foreign policy decision-making have less clear pathways for attribution.[^6] Additionally, there are many organizations that survey populations in countries other than the US; whether these survey results make it into academic literature is another question, but recent literature (Rogov 2017, Abbasov and Thies 2023, etc.) has worked to bring in some of these areas. 
+
+In addition to looking at other democracies, scholars have begun constructing models of accountability (related to foreign policy or not) in authoritarian systems. While representative governments have clearer lines of accountability than autocracies, scholars have nonetheless found avenues through which the public is able to influence authoritarian decision-making – including in foreign policy. Measuring public opinion is notoriously difficult in its traditional sense, as in unfree environments, citizens are likely to falsify their preferences (Kuran 1991) so as to avoid being targeted by the government. Nonetheless, newer work shows that many authoritarian regimes still engage in some sort of “representation within bounds” (Truex 2016). Much of the modern literature on authoritarian accountability can be found in the Chinese context;[^7] Reilly (2014) finds that the Chinese Communist Party is an “adaptive authoritarian regime” that responds to citizen demands to a certain degree. In foreign policy, this can be seen through the strategic allowance and prohibition of protests (Weiss 2013) that can sometimes influence the ways in which authoritarian regimes conduct themselves internationally. In fact, Gries, Stieger and Wang (2016) find that a series of anti-Japanese protests in 2012 over the Senkaku/Diaoyu/Tiaoyutai Islands led to a hardening of Chinese positions vis-a-vis Japan. Finally, research on authoritarian accountability by scholars such as Jessica Weeks, Mark Bell and Kai Quek has thrown aspects of the democratic peace into question: as mentioned previously, Weeks (2008, 2012, 2014) finds that certain types of authoritarian regimes actually are constrained by accountability levers, while Bell and Quek (2018) find that while it is likely true that democratic publics do not wish to fight one another, the Chinese public shows the same reluctance to use force against democracies as well. This is a rapidly expanding literature, and describing all newer work in this area is outside the scope of this paper; however, these papers represent some of the directions in which scholarship on authoritarian accountability is moving.
+
+Finally, the last few decades have seen a proliferation of articles on public opinion about trade, spurred by globalization and increased global interconnectivity. Again, this sector of the literature is rich and rapidly expanding; this paper does not attempt to engage with every piece of scholarship on the topic and instead outlines a couple of key trends and important papers.
+
+Traditional international political economy (IPE) literature has presumed that citizen preferences related to international trade are largely determined by economic interests;[^8] however, Mansfield and Mutz (2009) found that public opinion on trade was largely “sociotropic” rather than “egotropic,” meaning that the public draws opinions less from how trade affects their own personal finances and more from how they perceive it to affect the country as a whole. Other scholars followed in this fashion, and a similar phenomenon to the democratic peace literature’s move toward moral and social mechanisms took place: several studies pointed to some form of “belief” as the driving factor in public opinion on trade, including Margalit (2012) on culture and Brutger and Rathbun (2021) on “fairness,” among others. Political scientists have tried to explain the mechanisms behind these findings in various ways; we do understand, however, that while public opinion on trade has some emotion-based underpinnings to it, it nonetheless can manifest itself in concrete positions, meaning that there should be some implications for policymakers.
+
+Backlash to trade has made up a large part of the backlash to globalization as well, about which there is plenty of scholarship from international political economy scholars such as Helen Milner and Dani Rodrik. One of the most cited pieces on this topic is Rodrik’s 1997 book, Has Globalization Gone Too Far? This book was one of the first to take a critical look at the wave of globalization that swept the world in the 1990s and predict that there would be backlash in certain areas of society. While backlash to trade forms a large part of this literature, xenophobia and backlash to immigration also finds itself intertwined. Goldstein and Peters (2014), find find that these factors were quite intermixed during the 2008-2009 financial crisis.
+
+How have these views been expressed in policymaking, if at all? In recent years, many political movements have tied themselves directly to trade and anti-globalization sentiments. Populist movements especially have emerged in countries around the world, with leaders often appealing to protectionist, anti-globalization and anti-trade sentiments to stir up popular support (Rodrik 2021, Ballard-Rosa et al. 2021). It is difficult to tell the exact degree to which public opinion on trade has engendered populist movements, as many other related factors are involved too – nativism, “culture wars,” anti-immigrant sentiments, and the feeling that politicians and bureaucrats have isolated themselves from ordinary citizens (to name a few). However, there is little doubt that public opinion on trade in some way or another has helped lead to the rise of populism throughout the world, and politicians from all sides of the aisle must deal with these sentiments in some way or another.
+
+### Gaps in the Literature
+
+There are a number of different gaps in the literature that deserve significant further development. For one, while there is extensive literature on how regime type impacts the accountability relationship between public opinion and foreign policy (Bueno de Mesquita 1999, Weeks 2008, Baum and Potter 2015), there is not a lot of literature about the constructed identity of a regime – even within commonly accepted “types.” Not all multiparty systems are created equal, nor are all personalist dictatorships. Does it make a difference for accountability if a leader *claims* some sort of special representativeness? For example, a multiparty system headed by a populist who claims to be “close to the people” might take public opinion more into account than a multiparty system led by a technocrat with many years of service in an insulated bureaucracy. Similarly, a personalist leader who claims a deep connection with the common person (say, a Joseph Stalin type ruling a “dictatorship of the proletariat”) might be expected to look at public opinion differently than a personalist who does not utilize this sort of rhetoric. There is a small amount of literature on leader characteristics and their relative propensity to engage with public opinion on foreign policy and other issues (Foyle 1999, for example), but more could be done to develop this research agenda, especially as the number of so-called “populist” leaders continues to rise throughout the world. 
+
+Another related gap in the literature is understanding differentiation in responsiveness to public opinion in the bureaucracy itself (foreign ministries, defense ministries, etc.) In the literature on public opinion and foreign policy, relationships of accountability between the public and elected officials are relatively well-understood; however, relationships between the public and the bureaucrats in charge of implementing policy are less well-studied. Scholars are beginning to study accountability relationships of this sort in other parts of the bureaucracy, especially in health care (Bjorkman and Svensson 2009, Bjorkman Nyqvist et al. 2017, Raffler et al. 2022); however, to the best of my knowledge, systematic work on accountability in the parts of the bureaucracy responsible for foreign policy has not been undertaken. Additional work in this area would be a useful addition to the literature.
+
+Finally, as Kertzer (2020) rightly points out, literature on public opinion and foreign policy tends to focus too much attention on *sender* states, rather than *recipient* states. This is especially applicable to literature on foreign aid; however, it could also be applied to states faced with an impending military intervention, rather than just states debating whether or not to intervene. Kertzer argues that one main issue is limitations in data; however, public opinion polls are reaching an ever-widening audience, even in non-democratic, hybrid and authoritarian contexts. More work on contexts that are not advanced, Western democracies should help us understand the effects of public opinion on foreign policy on a much broader level. 
+
+## Exploration of “Populism” Research Program – Armenia
+
+One of these gaps that shows particular potential for future research is the potential “populism vs. non-populism” line of inquiry. This paper includes an exploratory case study as an introduction to what could potentially be an interesting research area, especially now, when the populist movement is on the rise. Can we find evidence that shows that self-proclaimed “populists” are more responsive to citizen foreign policy opinions than non-populists during a crisis of security? To study this question, this paper looks at the populist Nikol Pashinyan administration in a non-advanced democracy – Armenia. Pashinyan came to power in the non-violent “Velvet Revolution” in 2018 and has remained prime minister throughout the devastating Second Nagorno-Karabakh War in 2020[^9] and serious tensions with Azerbaijan, Turkey, and, more recently, Russia. We know from the literature (Larson and Savych 2005, Kreps 2010) that governments tend not to be very responsive to public opinion during wartime. However, these pieces were written before the rise of populism – does an explicit “public-oriented” persona help mitigate some of this insulation? Do we see more citizen-oriented foreign and defense policy during the Pashinyan administration than during the non-populist administrations covered by authors such as Kreps? Preliminarily, it is quite difficult to tell, but the likely answer is that at least during wartime, the answer is most likely no.
+
+For the dependent variable – government policy – this paper looks at two decisions made by the Pashinyan administration: 1) the move toward the normalization of ties with Turkey following the end of the Second Nagorno-Karabakh War in 2020, and 2) Pashinyan’s statement that an alliance with Russia was a “strategic mistake” in 2023 – the catalyst for a series of policy changes that shifted Armenia more toward the West. To measure the main independent variable of interest – citizen opinion – this paper looks at a couple of organizations that run regular polls in Armenia – the International Republican Institute (IRI) and the Caucasus Research Resource Center (CRRC). The goal is simply to understand the general role that public opinion played in shaping these policies; this sort of data mostly comes from speeches, press releases, interviews, and other similar sources.
+
+Polling clearly shows that people do actually care about foreign policy; in all of these questions, very few people answered “do not know” or refused to answer. Especially concerning issues that were crucial to national security, we see that the Almond/Lippmann consensus does not hold. Instead, we see that when peoples’ lives actually are at stake (as described in Verba and Brody 1970, Mueller 1971, 1973; Holsti and Rosenau 1979, Jentleson 1992), the public does form opinions, and not just in the United States or the West, but in other contexts as well. However, tying these opinions to direct government policy is a much more difficult task. While Page and Shapiro (1983) may have changed the ways in which we think about the relationship between public opinion and foreign policy, studies of this sort that simply use a time lag between a “change in opinion” and a “change in government policy” may not be describing a direct causal relationship. Instead, more detailed research needs to be done in a way that focuses more on mechanisms. While we do not have the resources to carry out full elite surveys or interviews, we can at least get some starting points, form preliminary conclusions, and show a) how some of the literature applies or does not apply and b) some ways to get more precise data in the future to better address the research program.
+
+### 1 – Normalization With Turkey: Both Public Support and Government Policy Likely Stem from Similar Fears; Little Evidence of Direct Causation
+
+In December 2021, around the same time that CRRC polling was going on, Nikol Pashinyan announced that Armenia and Turkey would appoint envoys to pursue the normalization of relations. Given that Armenia had just lost the 2020 Nagorno-Karabakh War to Azerbaijan, which was heavily funded and armed by Turkey, this move came as somewhat of a surprise. Public opinion in Armenia was virulently anti-Turkish; according to CRRC polling, the percentage of Armenians who considered Turkey the country’s “main enemy” rose significantly after the war. Figure 1 shows this trend:
+
+*Figure 1:[^10]*
 
 ```{r}
 ggplot(mainenemy_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
@@ -120,6 +173,20 @@ ggplot(mainenemy_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
 ggsave("mainenemy.png")
 ```
 
+IRI polling also shows that in December 2021, 80% of Armenians considered relations with Turkey to be “very bad” and 11% thought that they were “bad.”[^11] However, the same poll also shows that Armenians nonetheless, on average, *did* want to pursue normalization of relations, albeit on Armenia’s terms, with no preconditions and, preferably, with Turkish recognition of the Armenian Genocide. Thus, perhaps Pashinyan was responding to public opinion on this issue.
+
+Pashinyan’s own stated reasoning, however, was much more pragmatic. In an interview a little while after the start of the process, Pashinyan stated that 
+
+>…Speaking of security, any state can talk about security if it has normalized relations with its neighbors. And this is applicable not just to countries that are not military superpowers, but really in all situations. … It’s a mistaken perception that we are located between Russia and the West. In fact, we’re located between Georgia, Turkey, Iran, and Azerbaijan, so our state’s security interests first and foremost demand stable and regulated relations with our neighbors.[^12]
+
+Pashinyan’s main concerns appear to be mostly tied to material security factors, not public opinion. Returning to Page and Shapiro’s model, we can see some problematic aspects. While it may appear that foreign policy may follow public opinion, as is the case in this instance, it can often simply be that the public and the government are responding to the same circumstances in ways that end up lining up. In this instance, Pashinyan’s populist credentials do not seem to necessarily entail an increased level of accountability to the public in foreign policy: while positions happened to line up, the rationale given was not based on citizens’ opinion. This argument is reinforced by the fact that just months later, another IRI survey showed that public opinion had flipped, with 59% now against normalization.[^13] Yet, Pashinyan stayed the course on normalization, further showing that his logic did not depend on public opinion, but on what his administration deemed to be the correct move for the country.
+
+### 2 – Breakaway from Russia, Move Toward EU Correspond with Public Concerns on Russia, but not on EU
+
+In September 2023, Nikol Pashinyan stated in an interview to an Italian newspaper that Armenia’s alliance with Russia had been a “strategic mistake.”[^14] Although Armenia and Russia had been allies since the early 1990s, Russia failed both to provide significant aid to Armenia in the 2020 war in Nagorno-Karabakh and to protect Karabakhi Armenians after the end of the war as well, turning a blind eye as Azerbaijan enforced a months-long blockade on the small region. Thus, it was no wonder that trends in Armenian public opinion on Russia looked like this:
+	
+*Figure 2:*
+
 ```{r}
 ggplot(mainfriend_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
   geom_point(stat = "summary", fun.y = sum) + 
@@ -134,3 +201,226 @@ ggplot(mainfriend_clean, aes(x = as.factor(Year), y = Count, group = 1)) +
 ggsave("mainfriend.png")
 ```
 
+Pashinyan’s statement was followed up by action. Armenia refused to participate in (Russia-led) Collective Treaty Security Organization (CSTO) drills and froze its CSTO membership in February 2024. Additionally, Pashinyan’s wife visited Ukraine and provided aid, and, notably, Armenia declared its intention to join the EU in March.[^15]
+
+This combination of alienating Russia before securing a reliable replacement for security resulted in disaster for Armenia in the short term, as it led to Azerbaijan’s takeover of the rest of the Nagorno-Karabakh region. Perhaps, thus, this move was not “strategic” but more a response to public opinion? It does seem like a possibility; indeed, some news sources reported that Armenians’ views of relations with the EU had gotten steadily more positive, as 86% of Armenians reported in an IRI poll from early 2023 that relations with the EU were good, significantly better than the immediate post-war aftermath, where only 54% of Armenians felt that way. Perhaps Pashinyan was simply following what Armenians claimed they wanted.
+
+However, that 54% was a blip – Armenians’ assessment of the EU-Armenia relationship was consistently over 80% in every measurement done in the pre-war Pashinyan administration as well, and while some reports pointed to “public attitudes” on the EU strengthening,[^16] they really were just returning to normal. Additionally, as with the situation with Turkey, the events that caused public perceptions of the EU to become more positive also likely had an impact on the way that the Armenian government handled the situation. Finally, Armenian perceptions of positive relations with the EU did not necessarily mean that they wanted to join the EU. CRRC polls track consistently low support rates for EU accession – even during other years that Armenians held clearly positive views of the country’s relationship with the EU:
+
+*Figure 3:*
+
+```{r}
+ggplot(eusupportclean, aes(x = as.factor(Year), y = Count, group = 1)) +
+  geom_point(stat = "summary", fun.y = sum) + 
+  stat_summary(fun.y = sum, geom = "line", color = "blue") +
+  labs(y = "Percentage",
+       x = "Year", 
+       title = "Percentage of Armenians Supporting EU Accession",
+       subtitle = "Combined 'Rather Support' and 'Fully Support' Responses",
+       caption = "Data from CRRC 'Caucasus Barometer' surveys. Link: https://caucasusbarometer.org/en/datasets/") +
+  scale_y_continuous(limits = c(0, 100)) +
+  geom_text(aes(x = as.factor(Year), y = Count,label = round(Count, 2)),vjust=-0.5)
+
+ggsave("eusupport.png")
+```
+
+While data from 2023 for this question has not yet been made available to the public, we have no reason to believe that responses would deviate significantly enough from this pattern of low support to justify a complete shift away from Russia and toward EU accession. In IRI’s 2023 survey, 50% of Armenians still thought of Russia as one of Armenia’s most important political partners, and 61% as one of its most important economic partners.[^17] There may certainly have been a massive shift in public opinion on this question; however, there is weak evidence to show this. Most likely, Pashinyan (like many other Armenians) felt betrayed by Russia, and made an ill-fated decision to try and reach out to the West as an alternative. The result may not have been what he had hoped, but the reasons were most likely still largely strategic, not reactive to public opinion. Overall, as with normalizing relations with Turkey, it does not seem that Pashinyan – despite his populist credentials – acted significantly differently than Kreps (2010) would have predicted for non-populist leaders as well. 
+
+### For the Future: Further Specification of Mechanisms, Comparative Work
+
+While this paper does not find convincing evidence of a difference between populists’ and non-populists’ respective reliance on public opinion about foreign policy, that does not mean we come away with no new information. In fact, quite the opposite – it could, for example, tell us that populist rhetoric is only actually manifested in real policy in certain scenarios, and that more research, including comparative work, is necessary to show what exactly those scenarios are. To fully flesh out this case study and future research, it would be ideal to carry out qualitative interviews and/or surveys of policymakers and bureaucrats.
+
+Additionally, we can see some of the pitfalls of accountability models that only look at time-lagged data. Obviously, the field has come a long way methodologically since the 1980s, but nonetheless, these pitfalls are worth keeping in mind. Deeper research is needed to test for the presence of any confounding variables (as in this case study) that impact both public opinion and government policy, as well as other potential biases. Overall, there is plenty of room for expansion in this literature – hopefully this exploratory case study can help guide the way.
+
+## Bibliography
+
+\singlespacing
+
+Abbasov, Namig, and Cameron G Thies. “Between the West and Russia: Explaining Individual Foreign Policy Preferences in the Small States.” *Foreign Policy Analysis* 19, no. 2 (April 1, 2023): orac036. https://doi.org/10.1093/fpa/orac036.
+
+Aldrich, John H., Christopher Gelpi, Peter Feaver, Jason Reifler, and Kristin Thompson Sharp. “Foreign Policy and the Electoral Connection.” *Annual Review of Political Science* 9, no. 1 (June 1, 2006): 477–502. https://doi.org/10.1146/annurev.polisci.9.111605.105008.
+
+Almond, Gabriel. *The American People and Foreign Policy*. Harcourt, Brace & Co, 1950.
+
+Althaus, Scott L., and Kevin Coe. "Priming patriots: Social identity processes and the dynamics of public support for war." *Public Opinion Quarterly* 75, no. 1 (2011): 65-88.
+
+“Analitiki Sochli Peregovory Pashinyana i Erdogana Soglasovannymi s Moskvoy [Analytics Considered Pashinyan’s and Erdogan’s Negotiations to be Agreed Upon with Moscow],” *Kavkazskiyy Uzel*, October 6, 2022. https://www.kavkaz-uzel.eu/articles/381833.
+
+“Armenia Is Considering Seeking EU Membership, Foreign Minister Says.” *Reuters*, March 9, 2024, sec. Asia Pacific. https://www.reuters.com/world/asia-pacific/armenia-is-considering-seeking-eu-membership-foreign-minister-says-2024-03-09/.
+
+Avetisyan, Ani. “Armenia Scouts Path toward EU Accession.” *Eurasianet*, March 19, 2024. https://eurasianet.org/armenia-scouts-path-toward-eu-accession.
+
+Bartels, Larry M. “Constituency Opinion and Congressional Policy Making: The Reagan Defense Buildup.” *American Political Science Review* 85, no. 2 (June 1991): 457–74. https://doi.org/10.2307/1963169.
+
+Baum, Matthew A., and Philip BK Potter. *War and democratic constraint: How the public influences foreign policy*. Princeton University Press, 2015.
+
+Bell, Mark S., and Kai Quek. “Authoritarian Public Opinion and the Democratic Peace.” *International Organization* 72, no. 1 (2018): 227–42. https://doi.org/10.1017/S002081831700042X.
+
+Berinsky, Adam J. "Assuming the Costs of War: Events, Elites, and
+American Public Support for Military Conflict." *The Journal of Politics* 69, no. 4(November 2007): 975–997. 
+
+Bjereld, Ulf, and Ann-Marie Ekengren. "Foreign policy dimensions: A comparison between the United States and Sweden." *International Studies Quarterly* 43, no. 3 (1999): 503-518.
+
+Björkman, Martina, and Jakob Svensson. “Power to the People: Evidence from a Randomized Field Experiment on Community-Based Monitoring in Uganda.” *Quarterly Journal of Economics* 124, no. 2 (May 2009): 735–69. https://doi.org/10.1162/qjec.2009.124.2.735.
+
+Björkman Nyqvist, Martina, Damien De Walque, and Jakob Svensson. "Experimental evidence on the long-run impact of community-based monitoring." *American Economic Journal: Applied Economics* 9, no. 1 (2017): 33-69.
+
+Brutger, Ryan, and Brian Rathbun. "Fair share? Equality and equity in American attitudes toward trade." *International Organization* 75, no. 3 (2021): 880-900.
+
+Bueno de Mesquita, B., Morrow, J. D., Siverson, R. M., & Smith, A. "An Institutional Explanation for the Democratic Peace. *American Political Science Review* 93 (1999): 791–808.
+
+Bueno de Mesquita, B., Smith, A., Siverson, R. M., & Morrow, J. D *The Logic of Political Survival.* MIT Press, 2003. 
+
+Bundy, McGeorge, and James G. Blight. "October 27, 1962: Transcripts of the Meetings of the ExComm." *International Security* 12, no. 3 (1987): 30-92.
+
+Chen Weiss, Jessica. “Authoritarian Signaling, Mass Audiences, and Nationalist Protest in China,” *International Organization* 67, no. 1 (2013): 1–35.
+
+“Constitutional Amendments Approved in Armenia’s Referendum.” The Armenian Weekly, December 7, 2015. https://armenianweekly.com/2015/12/07/constitutional-amendments-approved/.
+
+Converse, Philip. 1964. "The Nature of Belief Systems in Mass Publics." In *Ideology and Discontent*, ed. David Apter, 206–261. New York: Free Press.
+
+Cooper, Andrew F., and Bessma Momani. "Qatar and expanded contours of small state diplomacy." *The International Spectator* 46, no. 3 (2011): 113-128.
+
+Croco, Sarah. “The Deciders Dilemma: Leader Culpability, War Outcomes, and Domestic Punishment,” *American Political Science Review* 105, no. 3 (2011), 457-477.
+
+Doeser, Fredrik. "Domestic politics and foreign policy change in small states: the fall of the Danish ‘footnote policy’." *Cooperation and Conflict* 46, no. 2 (2011): 222-241.
+
+Downes, Alexander B., and Todd S. Sechser. “The Illusion of Democratic Credibility.” *International Organization* 66, no. 3 (July 2012): 457–89. https://doi.org/10.1017/S0020818312000161.
+
+Fearon, James D. “Domestic Political Audiences and the Escalation of International Disputes.” *American Political Science Review* 88, no. 3 (September 1994): 577–92. https://doi.org/10.2307/2944796.
+
+Foyle, Douglas C. *Counting the public in: Presidents, public opinion, and foreign policy.* Columbia University Press, 1999.
+
+Ganguly, Sumit, Timothy Hellwig, and William R. Thompson. "The foreign policy attitudes of Indian elites: Variance, structure, and common denominators." *Foreign Policy Analysis* 13, no. 2 (2017): 416-438.
+
+Gelpi, Christopher. "Democracies in conflict: The role of public opinion, political parties, and the press in shaping security policy." *Journal of Conflict Resolution* 61, no. 9 (2017): 1925-1949.
+
+Goldstein, Judith L., and Margaret E. Peters. "Nativism or economic threat: Attitudes toward immigrants during the great recession." *International Interactions* 40, no. 3 (2014): 376-401.
+
+Green, Anna. “Aggressive Centrism: Navigating the Contours of Nikol Pashinyan’s Political Ideology.” *EVN Report (blog)*, June 20, 2018. https://evnreport.com/politics/aggressive-centrism-navigating-the-contours-of-nikol-pashinyans-political-ideology/.
+
+Gries, Peter Hays, Derek Steiger, and Tao Wang. "Popular nationalism and China’s Japan policy: the Diaoyu Islands protests, 2012–2013." *Journal of Contemporary China* 25, no. 98 (2016): 264-276.
+
+Gries, Peter, and Tao Wang. “Chapter 30: Public Opinion and Foreign Policy: Beyond the Electoral Connection in: Handbook on Politics and Public Opinion.” August 19, 2022. https://www-elgaronline-com.proxy.library.upenn.edu/edcollchap/book/9781800379619/book-part-9781800379619-46.xml.
+
+Guisinger, Alexandra, and Elizabeth N. Saunders. "Mapping the boundaries of elite cues: How elites shape mass opinion across international issues." *International Studies Quarterly* 61, no. 2 (2017): 425-441.
+
+Gulzar, Saad, and Benjamin J. Pasquale. "Politicians, bureaucrats, and development: Evidence from India." *American Political Science Review* 111, no. 1 (2017): 162-183.
+
+Holsti, O.R. and N. Rosenau. "Vietnam, Consensus, and the Belief Systems of American Leaders. *World Politics* 32 (1979): 1-56. 
+
+Holsti, Ole R. “Public Opinion and Foreign Policy: Challenges to the Almond-Lippmann Consensus Mershon Series: Research Programs and Debates.” *International Studies Quarterly* 36, no. 4 (1992): 439–66. https://doi.org/10.2307/2600734.
+
+International Republican Institute. “Public Opinion Survey: Residents of Armenia,” January 31, 2022. https://www.iri.org/resources/public-opinion-surveyresidents-of-armenia/.
+
+International Republican Institute. “Public Opinion Survey: Residents of Armenia | January-March 2023,” May 1, 2023. https://www.iri.org/resources/public-opinion-survey-residents-of-armenia-january-march-2023/.
+
+“IRI Armenia Poll Shows Concerns over National Security, Favorable Views of the Prime Minister, and a Desire for Constitutional Reform.” *International Republican Institute*, September 9, 2022. https://www.iri.org/news/iri-armenia-poll-shows-concerns-over-national-security-favorable-views-of-the-prime-minister-and-a-desire-for-constitutional-reform/.
+
+Jentleson, B.W. "The Pretty Prudent Public: Post-Post Vietnam American Opinion on the Use of Military Force." *International Studies Qutarterly* 35 (1992):49-73.
+
+Kertzer, Joshua D., Kathleen E. Powers, Brian C. Rathbun, and Ravi Iyer. "Moral support: How moral values shape foreign policy attitudes." *The Journal of Politics* 76, no. 3 (2014): 825-840.
+
+Kertzer, Joshua D., and Ryan Brutger. “Decomposing Audience Costs: Bringing the Audience Back into Audience Cost Theory.” *American Journal of Political Science* 60, no. 1 (2016): 234–49. https://doi.org/10.1111/ajps.12201.
+
+Kertzer, Joshua D. "Microfoundations in international relations." *Conflict Management and Peace Science* 34, no. 1 (2017): 81-97.
+
+Kertzer, Joshua D., and Thomas Zeitzoff. “A Bottom-Up Theory of Public Opinion about Foreign Policy.” *American Journal of Political Science* 61, no. 3 (2017): 543–58. https://doi.org/10.1111/ajps.12314.
+
+Kertzer, Joshua. “Public Opinion and Foreign Policy.” November 24, 2020. https://www.oxfordbibliographies.com/display/document/obo-9780199743292/obo-9780199743292-0244.xml.
+
+Kertzer, Joshua D. “Public Opinion about Foreign Policy,” *Oxford Handbook of Political Psychology*, Third Edition (2021).
+
+Kochinyan, Areg. “Yerevan@ Moskvayi yev Ankarayi mijev: [Yerevan Between Moscow and Ankara],” *Analyticon*, January 22, 2022. https://theanalyticon.com/hunvar-2022/%d5%a5%d6%80%d6%87%d5%a1%d5%b6%d5%a8%d5%9d-%d5%b4%d5%b8%d5%bd%d5%af%d5%be%d5%a1%d5%b5%d5%ab-%d6%87-%d5%a1%d5%b6%d5%af%d5%a1%d6%80%d5%a1%d5%b5%d5%ab-%d5%b4%d5%ab%d5%bb%d6%87-2/.
+
+Kreps, Sarah. “Elite Consensus as a Determinant of Alliance Cohesion: Why Public Opinion Hardly Matters for NATO-Led Operations in Afghanistan.” *Foreign Policy Analysis* 6, no. 3 (2010): 191–215.
+
+Kreps, Sarah, and Sarah Maxey. "Mechanisms of morality: Sources of support for humanitarian intervention." *Journal of Conflict Resolution* 62, no. 8 (2018): 1814-1842.
+
+Kuran, Timur. "The East European revolution of 1989: is it surprising that we were surprised?." *The American Economic Review* 81, no. 2 (1991): 121-125.
+
+Larson, Eric, and Bogdan Savych. *American Public Support for U.S. Military Operations from Mogadishu to Baghdad.* RAND Corporation, 2005. https://doi.org/10.7249/MG231.
+
+Levendusky, Matthew S., and Michael C. Horowitz. "When backing down is the right decision: Partisanship, new information, and audience costs." *The Journal of Politics* 74, no. 2 (2012): 323-338.
+
+Lippmann, Walter. *Public Opinion*. Harcourt, Brace & Co, 1922. 
+
+Lippmann, Walter. *The Phantom Public*. New York: Harcourt, Brace, 1925.
+
+Mansfield, Edward D., and Diana C. Mutz. "Support for free trade: Self-interest, sociotropic politics, and out-group anxiety." *International organization* 63, no. 3 (2009): 425-457.
+
+Margalit, Yotam. “Lost in Globalization: International Economic Integration and the Sources of Popular Discontent1.” *International Studies Quarterly* 56, no. 3 (September 1, 2012): 484–500. https://doi.org/10.1111/j.1468-2478.2012.00747.x.
+
+Martikian, Naira. “Armeniya mezhdu Rossiyey i Turtsiyey: garantiy vernogo vybora nyet [Armenia between Russia and Turkey: No Guarantee of a Correct Choice],” *JAMnews in Russian (blog)*, January 13, 2022. 
+
+Mesquita, Bruce Bueno de, James D. Morrow, Randolph M. Siverson, and Alastair Smith. “An Institutional Explanation of the Democratic Peace.” *American Political Science Review* 93, no. 4 (December 1999): 791–807. https://doi.org/10.2307/2586113.
+
+Mueller, John E. "Trends in Popular Support for the Wars in Korea and Vietnam." *American Political Science Review* 65, no. 2 (1971): 358-375.
+
+Mueller, J.E. *War, Presidents and Public Opinion.* New York: Wiley (1973).
+
+Narang, Vipin, and Paul Staniland. “Democratic Accountability and Foreign Security Policy: Theory and Evidence from India.” *Security Studies* 27, no. 3 (July 3, 2018): 410–47. https://doi.org/10.1080/09636412.2017.1416818.
+
+Nincic, Miroslav. “The United States, the Soviet Union, and the Politics of Opposites.” *World Politics* 40, no. 4 (July 1988): 452–75. https://doi.org/10.2307/2010314.
+
+Oktay, Sibel. “Clarity of Responsibility and Foreign Policy Performance Voting.” *European Journal of Political Research* 57, no. 3 (2018): 587–614. https://doi.org/10.1111/1475-6765.12251.
+
+Osborn, Andrew. “Armenian PM Says Depending Solely on Russia for Security Was ‘Strategic Mistake’,” *Reuters*, September 3, 2023. https://www.reuters.com/world/asia-pacific/armenian-pm-says-depending-solely-russia-security-was-strategic-mistake-2023-09-03/. 
+
+Page, Benjamin I., and Robert Y. Shapiro. “Effects of Public Opinion on Policy.” *American Political Science Review* 77, no. 1 (March 1983): 175–90. https://doi.org/10.2307/1956018.
+
+“Pashinyan: U menya slozhilos' vpechatleniye, chto normalizatsiya otnosheniy s Armeniyey ochen' vazhna i dlya Turtsi [Pashinyan: I've Gotten the Impression that Normalization of Relations with Armenia is Very Important for Turkey as Well],” May 11, 2024. https://news.am/rus/news/778547.html. 
+
+Press, Daryl G., Scott D. Sagan, and Benjamin A. Valentino. "Atomic aversion: Experimental evidence on taboos, traditions, and the non-use of nuclear weapons." *American Political Science Review* 107, no. 1 (2013): 188-206.
+
+Raffler, Pia J. “Does political oversight of the bureaucracy increase accountability? Field experimental evidence from a dominant party regime.” *American Political Science Review* 116.4 (2022): 1443-1459.
+
+Reilly, James. "A Wave to Worry About? Public opinion, foreign policy and China's anti-Japan protests." *Journal of Contemporary China* 23, no. 86 (2014): 197-215.
+
+Rodrik, Dani. *Has Globalization Gone Too Far?* Institute for International Economics, 1997.
+
+Rogov, Kirill. "Political reaction in Russia and “party groups” in Russian society." *Russian Politics & Law* 55, no. 2 (2017): 77-114.
+
+Russett, Bruce. “Doves, Hawks, and U.S. Public Opinion.” *Political Science Quarterly* 105, no. 4 (1990): 515–38. https://doi.org/10.2307/2150933.
+
+Saunders, Elizabeth N. "War and the inner circle: Democratic elites and the politics of using force." *Security Studies* 24, no. 3 (2015): 466-501.
+
+Schwartz, Joshua A., and Christopher W. Blair. "Do women make more credible threats? Gender stereotypes, audience costs, and crisis bargaining." *International Organization* 74, no. 4 (2020): 872-895.
+
+Snyder, Jack, and Erica D. Borghard. “The Cost of Empty Threats: A Penny, Not a Pound,” *American Political Science Review* 105, no. 3 (2011): 437-456. https://www-cambridge-org.proxy.library.upenn.edu/core/journals/american-political-science-review/article/cost-of-empty-threats-a-penny-not-a-pound/2E18EEFDB257556D4350AAFEE4EA3961.
+
+Sobel, Richard. *The Impact of Public Opinion on U.S. Foreign Policy since Vietnam: Constraining the Colossus.* Oxford University Press (2001). https://cir.nii.ac.jp/crid/1130000798349852160.
+
+Tomz, Michael. “Domestic Audience Costs in International Relations: An Experimental Approach.” *International Organization* 61, no. 04 (October 2007). https://doi.org/10.1017/S0020818307070282.
+
+Tomz, Michael, Jessica L. P. Weeks, and Keren Yarhi-Milo. “Public Opinion and Decisions About Military Force in Democracies.” *International Organization* 74, no. 1 (January 2020): 119–43. https://doi.org/10.1017/S0020818319000341.
+
+Tomz, Michael, and Jessica LP Weeks. "Military alliances and public support for war." *International Studies Quarterly* 65, no. 3 (2021): 811-824.
+
+Truex, Rory. *Making Autocracy Work: Representation and Responsiveness in Modern China.* 1st ed. Cambridge University Press, 2016. https://doi.org/10.1017/CBO9781316771785.
+
+Verba, S. and R.A. Brody, "Participation, Policy Preferences, and the War in Vietnam." *Public Opinion Quarterly* 34 (1970):325-332.
+
+Verba, S. et al. "Public Opinion and the War in Vietnam." *American Political Science Review* 61 (1967):317-333.
+
+Weeks, Jessica L. "Autocratic audience costs: Regime type and signaling resolve." *International Organization* 62, no. 1 (2008): 35-64.
+
+Weeks, Jessica L. "Strongmen and straw men: Authoritarian regimes and the initiation of international conflict." *American Political Science Review* 106, no. 2 (2012): 326-347.
+
+[^1]: Bartels (1991) notes that “...whether constituency opinion has a similar impact on congressional policy making in other issue areas and under other political circumstances is, of course, an open question.” 
+[^2]: Bruce Russett, “Doves, Hawks, and U.S. Public Opinion,” *Political Science Quarterly* 105, no. 4 (1990): 538.
+[^3]: The literature on state capture of the media, especially in hybrid and authoritarian contexts, is relatively extensive. See papers such as King, Pan, and Roberts (2013), Gunitsky (2015), Sanovich (2017), Pan and Siegel (2020), etc. 
+[^4]: Bueno de Mesquita et al.’s 2003 book, *The Logic of Political Survival*, is frequently cited.
+[^5]: Interestingly, however, Dropp, Kertzer and Zeitsoff (2014) find that the public, while often quite uninformed about foreign military interventions, is at times willing to send soldiers abroad to places they cannot even locate on a map. Whether these sentiments translate into actual policymaking, however, is another question. 
+[^6]: Other interesting work on differentiation in attribution and punishment for subpar performance can be found in Gulzar and Pasquale (2017), among others.
+[^7]: In addition to the articles described, see Zhao (2013), Ross (2013), Christensen (2015), Chen, Pan and Xu (2016), Distelhorst and Hou (2017), Meng, Pan, and Ping (2017), and Gries and Wang (2022), among others. 
+[^8]: The Ricardo-Viner, Heckscher-Ohlin, Stolper-Samuelson Models, etc.
+[^9]: The formerly disputed Nagorno-Karabakh region was a part of Azerbaijan which was populated heavily by ethnic Armenians. The First Nagorno-Karabakh War led to Armenian control over Karabakh and some surrounding regions; the Second Nagorno-Karabakh War saw Azerbaijan win back the surrounding regions and parts of Karabakh itself, with Russia assuming a peacekeeping role as part of the ceasefire agreement.
+[^10]: Data and code at https://github.com/dfshapir/case_psci_6104. 
+[^11]: International Republican Institute. “Public Opinion Survey: Residents of Armenia,” January 31, 2022. https://www.iri.org/resources/public-opinion-surveyresidents-of-armenia/.
+[^12]: “Pashinyan: U menya slozhilos' vpechatleniye, chto normalizatsiya otnosheniy s Armeniyey ochen' vazhna i dlya Turtsi [Pashinyan: I've Gotten the Impression that Normalization of Relations with Armenia is Very Important for Turkey as Well],” May 11, 2024. https://news.am/rus/news/778547.html.
+[^13]: “IRI Armenia Poll Shows Concerns over National Security, Favorable Views of the Prime Minister, and a Desire for Constitutional Reform.” *International Republican Institute*, September 9, 2022. https://www.iri.org/news/iri-armenia-poll-shows-concerns-over-national-security-favorable-views-of-the-prime-minister-and-a-desire-for-constitutional-reform/.
+[^14]: Osborn, Andrew. “Armenian PM Says Depending Solely on Russia for Security Was ‘Strategic Mistake’,” *Reuters*, September 3, 2023. https://www.reuters.com/world/asia-pacific/armenian-pm-says-depending-solely-russia-security-was-strategic-mistake-2023-09-03/.
+[^15]: “Armenia Is Considering Seeking EU Membership, Foreign Minister Says.” *Reuters*, March 9, 2024, sec. Asia Pacific. https://www.reuters.com/world/asia-pacific/armenia-is-considering-seeking-eu-membership-foreign-minister-says-2024-03-09/.
+[^16]: Avetisyan, Ani. “Armenia Scouts Path toward EU Accession,” *Eurasianet*, March 19, 2024. https://eurasianet.org/armenia-scouts-path-toward-eu-accession.
+[^17]: International Republican Institute. “Public Opinion Survey: Residents of Armenia | January-March 2023,” May 1, 2023. https://www.iri.org/resources/public-opinion-survey-residents-of-armenia-january-march-2023/.
